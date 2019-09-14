@@ -1,0 +1,65 @@
+.grid {
+	width: 100%;
+
+	background-color: rgba($color-brown-dark, 0.5);
+	border-radius: 5px;
+	padding: 2rem;
+
+	&__row {
+		width: 100%;
+		display: flex;
+		justify-content: space-around;
+
+		&:not(:last-child) {
+			margin-bottom: 2rem;
+		}
+	}
+
+	&__cell {
+		width: 10rem;
+		height: 10rem;
+		border-radius: 2px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		background-color: $color-brown-light;
+
+		&:not(:last-child) {
+			margin-right: 2rem;
+		}
+
+		&--2 {
+			background: #D6B05B;
+		}
+		&--4 {
+			background: #ead7ad;
+		}
+		&--8 {
+			background:#f88e75;
+		}
+		&--16 {
+			background:#e0c384; 
+		}
+		&--32 {
+			background: #ead7ad; 
+		}
+		&--64 {
+			background: #e2c78c; 
+		}
+		&--128 {
+			background: #c5a750;
+		}
+		&--256 {
+			background: #fbbeb0;
+		}
+		&--512 {
+			background: #c09d95;
+		}
+		&--1024 {
+			background: #e0907e;
+		}
+		&--2048 {
+			background: #eec469;
+		}
+	}
+}

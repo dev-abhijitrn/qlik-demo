@@ -1,0 +1,40 @@
+html {
+	font-size: 62.5%; /* (10*100/16) */
+}
+
+body {
+	font-family: 'Roboto', sans-serif;
+	font-weight: 400;
+	color: $color-brown-dark;
+}
+
+.header {
+	&__title {
+		font-size: 6rem;
+		font-weight: bold;
+	}
+
+	&__new-game-btn {
+		font-size: 1.6rem;
+		font-weight: bold;
+	}
+}
+
+.game-info__about {
+	font-size: 1.6rem;
+}
+
+.score__text {
+	font-size: 1rem;
+	text-transform: uppercase;
+}
+
+.score__result {
+	font-size: 1.8rem;
+	font-weight: bold;
+}
+
+.grid__cell {
+	font-size: 3rem;
+	font-weight: bold;
+}

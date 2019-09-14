@@ -1,0 +1,49 @@
+@import 'variables';
+@import 'typography';
+@import 'base';
+@import 'grid';
+
+.header {
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 3rem;
+
+	&__new-game-btn {
+		height: 4rem;
+		width: 10rem;
+		background-color: $color-silk;
+		color: white;
+		border: none;
+		border-radius: 2px;
+		cursor: pointer;
+	}
+}
+
+main {
+	width: 100%;
+}
+
+.game-info {
+	width: 100%;
+
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.score {
+	width: 6rem;
+	height: 5rem;
+	background-color: $color-silk;
+	color: white;
+	border-radius: 2px;
+
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	align-items: center;
+
+	margin-bottom: 3rem;
+}
