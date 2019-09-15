@@ -14,27 +14,26 @@ body {
 		font-weight: bold;
 	}
 
+	&__about{
+		font-size: 1.6rem;
+	}	
+}
+
+.game-actions{
 	&__new-game-btn {
 		font-size: 1.6rem;
 		font-weight: bold;
 	}
 }
 
-.game-info__about {
-	font-size: 1.6rem;
-}
-
-.score__text {
-	font-size: 1rem;
-	text-transform: uppercase;
-}
-
-.score__result {
-	font-size: 1.8rem;
-	font-weight: bold;
-}
-
 .grid__cell {
 	font-size: 3rem;
 	font-weight: bold;
+}
+
+.game__status {
+	font-size: 5rem;
+	font-weight: bold;
+	color:#c89765 ;
+	text-transform: uppercase;
 }

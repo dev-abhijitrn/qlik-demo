@@ -21,19 +21,17 @@
 <body>
     <header class="header">
         <h1 class="header__title">2048</h1>
-        <button class="header__new-game-btn">New Game</button>
+        <p class="header__about">
+            Join the numbers and get to the <strong> 2048 tile!</strong>
+        </p>
     </header>
     <main>
-        <section class="game-info">
-            <p class="game-info__about">
-                Join the numbers and get to the <strong> 2048 tile!</strong>
-            </p>
-            <div class="score">
-                <span class="score__text">Score</span>
-                <span class="score__result">2048</span>
-            </div>
+        <section class="game-actions">
+
+            <button class="game-actions__new-game-btn">New Game</button>
         </section>
         <section class="game">
+            <div class="game__status">GAME OVER !</div>
             <div class="grid">
                 <div class="grid__row">
                     <div class="grid__cell grid__cell--0-0"></div>

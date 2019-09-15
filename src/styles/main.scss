@@ -1,5 +1,6 @@
 @import 'variables';
 @import 'typography';
+@import 'animations';
 @import 'base';
 @import 'grid';
 
@@ -8,7 +9,16 @@
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	margin-bottom: 3rem;
+	margin-bottom: 2rem;
+}
+
+main {
+	width: 100%;
+}
+
+.game-actions {
+	text-align: right;
+	margin-bottom: 4rem;	
 
 	&__new-game-btn {
 		height: 4rem;
@@ -21,29 +31,21 @@
 	}
 }
 
-main {
-	width: 100%;
-}
 
-.game-info {
-	width: 100%;
+.game{
+	position: relative;
 
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-}
-
-.score {
-	width: 6rem;
-	height: 5rem;
-	background-color: $color-silk;
-	color: white;
-	border-radius: 2px;
-
-	display: flex;
-	flex-direction: column;
-	justify-content: space-around;
-	align-items: center;
-
-	margin-bottom: 3rem;
+	&__status{
+		opacity: 0;
+		position: absolute;
+		height: 100%;
+		width: 100%;
+		background-color: rgba(#ebd6c2, .5);
+		z-index: 10;	
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		transition: all .5s;
+		transform: scale(1.1, 1.1);
+	}
 }

@@ -2,8 +2,9 @@ import Grid from './Grid';
 
 import './styles/main.scss';
 
-const INITIAL_CELL_COUNT = 2;
+const INITIAL_TILE_COUNT = 2;
 const GRID_SIZE = 4;
+const FINAL_GAME_SCORE = 2048;
 
 export default class App {
     constructor() {
@@ -15,44 +16,45 @@ export default class App {
             [0, 0, 0, 0],
             [0, 0, 0, 0]
         ];
-        this.score = 0;
+        this.gameOver = false;
+        this.gameWon = false;
         this.setUp();
         this.registerEvents();
     }
 
     setUp() {
-        for (let index = 0; index < INITIAL_CELL_COUNT; index++) {
+        for (let index = 0; index < INITIAL_TILE_COUNT; index++) {
             this.addNewTile();
         }
-        console.table(this.tileValues);
         this.grid.renderGrid(this.tileValues);
+        this.grid.resetGameStatus();
     }
 
     addNewTile() {
-        const emptyCells = this.getEmptyCells();
+        const emptyTiles = this.getEmptyTiles();
 
-        if (emptyCells.length) {
-            const [row, col] = emptyCells[[Math.floor(Math.random() * emptyCells.length)]];
+        if (emptyTiles.length) {
+            const [row, col] = emptyTiles[[Math.floor(Math.random() * emptyTiles.length)]];
             this.tileValues[row][col] = Math.random() < 0.8 ? 2 : 4;
         }
     }
 
-    getEmptyCells() {
+    getEmptyTiles() {
 
-        const emptyCells = [];
+        const emptyTiles = [];
         for (let row = 0; row < GRID_SIZE; row++) {
             for (let col = 0; col < GRID_SIZE; col++) {
                 if (this.tileValues[row][col] === 0) {
-                    emptyCells.push([row, col])
+                    emptyTiles.push([row, col])
                 }
             }
         }
-        return emptyCells;
+        return emptyTiles;
     }
 
     moveTilesRight() {
 
-        let tilesModified = false;
+        let tilesMoved = false;
 
         for (let row = 0; row < GRID_SIZE; row++) {
 
@@ -63,7 +65,9 @@ export default class App {
             for (let col = GRID_SIZE - 1; col >= 0; col--) {
 
                 if (tileRow[col] === 0) {
-                    farthestTileWithZeroIndex = col > farthestTileWithZeroIndex ? col : farthestTileWithZeroIndex;
+                    farthestTileWithZeroIndex = col > farthestTileWithZeroIndex ?
+                        col :
+                        farthestTileWithZeroIndex;
                     continue;
                 }
 
@@ -77,11 +81,19 @@ export default class App {
                     }
 
                     if (tileRow[col] === tileRow[nextTileIndex]) {
+
                         tileRow[nextTileIndex] += tileRow[col];
+
+                        if (tileRow[nextTileIndex] === FINAL_GAME_SCORE) {
+                            this.gameWon = true;
+                        }
+
                         tileRow[col] = 0;
-                        farthestTileWithZeroIndex = col > farthestTileWithZeroIndex ? col : farthestTileWithZeroIndex;
+                        farthestTileWithZeroIndex = col > farthestTileWithZeroIndex ?
+                            col :
+                            farthestTileWithZeroIndex;
                         alreadyCalucatedTileIndex = nextTileIndex;
-                        tilesModified = true;
+                        tilesMoved = true;
                     }
 
                     break;
@@ -91,17 +103,16 @@ export default class App {
                     tileRow[farthestTileWithZeroIndex] = tileRow[col];
                     tileRow[col] = 0;
                     farthestTileWithZeroIndex = farthestTileWithZeroIndex - 1;
-                    tilesModified = true;
+                    tilesMoved = true;
                 }
             }
 
         }
-        return tilesModified;
+        return tilesMoved;
     }
 
-
     moveTilesLeft() {
-        let tilesModified = false;
+        let tilesMoved = false;
 
         for (let row = 0; row < GRID_SIZE; row++) {
 
@@ -127,10 +138,15 @@ export default class App {
 
                     if (tileRow[col] === tileRow[nextTileIndex]) {
                         tileRow[nextTileIndex] += tileRow[col];
+
+                        if (tileRow[nextTileIndex] === FINAL_GAME_SCORE) {
+                            this.gameWon = true;
+                        }
+
                         tileRow[col] = 0;
                         farthestTileWithZeroIndex = col < farthestTileWithZeroIndex ? col : farthestTileWithZeroIndex;
                         alreadyCalucatedTileIndex = nextTileIndex;
-                        tilesModified = true;
+                        tilesMoved = true;
                     }
 
                     break;
@@ -140,16 +156,16 @@ export default class App {
                     tileRow[farthestTileWithZeroIndex] = tileRow[col];
                     tileRow[col] = 0;
                     farthestTileWithZeroIndex = farthestTileWithZeroIndex + 1;
-                    tilesModified = true;
+                    tilesMoved = true;
                 }
             }
 
         }
-        return tilesModified;
+        return tilesMoved;
     }
 
     moveTilesUp() {
-        let tilesModified = false;
+        let tilesMoved = false;
 
         for (let col = 0; col < GRID_SIZE; col++) {
 
@@ -174,10 +190,15 @@ export default class App {
 
                     if (this.tileValues[row][col] === this.tileValues[nextTileIndex][col]) {
                         this.tileValues[nextTileIndex][col] += this.tileValues[row][col];
+
+                        if (this.tileValues[nextTileIndex][col] === FINAL_GAME_SCORE) {
+                            this.gameWon = true;
+                        }
+
                         this.tileValues[row][col] = 0;
                         farthestTileWithZeroIndex = row < farthestTileWithZeroIndex ? row : farthestTileWithZeroIndex;
                         alreadyCalucatedTileIndex = nextTileIndex;
-                        tilesModified = true;
+                        tilesMoved = true;
                     }
 
                     break;
@@ -187,17 +208,17 @@ export default class App {
                     this.tileValues[farthestTileWithZeroIndex][col] = this.tileValues[row][col];
                     this.tileValues[row][col] = 0;
                     farthestTileWithZeroIndex = farthestTileWithZeroIndex + 1;
-                    tilesModified = true;
+                    tilesMoved = true;
                 }
             }
 
         }
 
-        return tilesModified;
+        return tilesMoved;
     }
 
     moveTilesDown() {
-        let tilesModified = false;
+        let tilesMoved = false;
 
         for (let col = 0; col < GRID_SIZE; col++) {
 
@@ -222,10 +243,15 @@ export default class App {
 
                     if (this.tileValues[row][col] === this.tileValues[nextTileIndex][col]) {
                         this.tileValues[nextTileIndex][col] += this.tileValues[row][col];
+
+                        if (this.tileValues[nextTileIndex][col] === FINAL_GAME_SCORE) {
+                            this.gameWon = true;
+                        }
+
                         this.tileValues[row][col] = 0;
                         farthestTileWithZeroIndex = row > farthestTileWithZeroIndex ? row : farthestTileWithZeroIndex;
                         alreadyCalucatedTileIndex = nextTileIndex;
-                        tilesModified = true;
+                        tilesMoved = true;
                     }
 
                     break;
@@ -235,49 +261,102 @@ export default class App {
                     this.tileValues[farthestTileWithZeroIndex][col] = this.tileValues[row][col];
                     this.tileValues[row][col] = 0;
                     farthestTileWithZeroIndex = farthestTileWithZeroIndex - 1;
-                    tilesModified = true;
+                    tilesMoved = true;
                 }
             }
 
         }
 
-        return tilesModified;
+        return tilesMoved;
+    }
+
+    checkIfGameIsOver() {
+        console.log('checkIfGameIsOver')
+        for (let row = 0; row < GRID_SIZE; row++) {
+            for (let col = 0; col < GRID_SIZE; col++) {
+                if (
+                    this.tileValues[row][col] === this.tileValues[row][col + 1]
+                    ||
+                    this.tileValues[row][col] === this.tileValues[row][col - 1]
+                    ||
+                    (
+                        this.tileValues[row + 1] &&
+                        this.tileValues[row][col] === this.tileValues[row + 1][col]
+                    )
+                    ||
+                    (
+                        this.tileValues[row - 1] &&
+                        this.tileValues[row][col] === this.tileValues[row - 1][col]
+                    )
+                ) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+
+    updateGrid(tilesMoved) {
+
+        const anyEmptyTileExist = this.getEmptyTiles().length !== 0;
+
+        console.log('anyEmptyTileExist: ', anyEmptyTileExist)
+        console.log('tilesMoved: ', tilesMoved)
+        if (tilesMoved) {
+            this.grid.renderGrid(this.tileValues);
+            if (anyEmptyTileExist) {
+                this.addNewTile();
+                this.grid.renderGrid(this.tileValues);
+            }
+        }
+
+        if (this.gameWon) {
+            this.grid.displayGameStatus(true);
+        }
+
+        const allTilesOccupied = this.getEmptyTiles().length === 0;
+
+        if (allTilesOccupied) {
+            this.gameOver = this.checkIfGameIsOver();
+            if (this.gameOver)
+                this.grid.displayGameStatus(false);
+        }
+
+
     }
 
     registerEvents() {
 
-        document.addEventListener("keydown", (event) => {
-
+        document.addEventListener('keydown', (event) => {
             event.preventDefault();
+            let tilesMoved = false;
+
             if (event.which === 37) {
-                const tilesModified = this.moveTilesLeft();
-                if (tilesModified) {
-                    this.addNewTile();
-                    this.grid.renderGrid(this.tileValues)
-                }
+                tilesMoved = this.moveTilesLeft();
             } else if (event.which === 38) {
-                const tilesModified = this.moveTilesUp();
-                if (tilesModified) {
-                    this.addNewTile();
-                    this.grid.renderGrid(this.tileValues)
-                }
+                tilesMoved = this.moveTilesUp();
             } else if (event.which === 39) {
-                const tilesModified = this.moveTilesRight();
-                if (tilesModified) {
-                    this.addNewTile();
-                    this.grid.renderGrid(this.tileValues)
-                }
+                tilesMoved = this.moveTilesRight();
             } else if (event.which === 40) {
-                const tilesModified = this.moveTilesDown();
-                if (tilesModified) {
-                    this.addNewTile();
-                    this.grid.renderGrid(this.tileValues)
-                }
+                tilesMoved = this.moveTilesDown();
             } else {
                 return;
             }
 
+            this.updateGrid(tilesMoved);
         });
+
+        document.querySelector('.game-actions__new-game-btn')
+            .addEventListener('click', () => {
+                this.tileValues = [
+                    [0, 0, 0, 0],
+                    [0, 0, 0, 0],
+                    [0, 0, 0, 0],
+                    [0, 0, 0, 0]
+                ];
+                this.setUp()
+            })
     }
 
 }

@@ -28,38 +28,42 @@
 			margin-right: 2rem;
 		}
 
+		&--modified{			
+			animation: zoomIn .8s;
+		}
+
 		&--2 {
-			background: #D6B05B;
+			background-color: #D6B05B;	
 		}
 		&--4 {
-			background: #ead7ad;
+			background-color: #ead7ad;			
 		}
 		&--8 {
-			background:#f88e75;
+			background-color:#f88e75;
 		}
 		&--16 {
-			background:#e0c384; 
+			background-color:#e0c384; 
 		}
 		&--32 {
-			background: #ead7ad; 
+			background-color: #ead7ad; 
 		}
 		&--64 {
-			background: #e2c78c; 
+			background-color: #e2c78c; 
 		}
 		&--128 {
-			background: #c5a750;
+			background-color: #c29a24;
 		}
 		&--256 {
-			background: #fbbeb0;
+			background-color: #fbbeb0;
 		}
 		&--512 {
-			background: #c09d95;
+			background-color: #c09d95;
 		}
 		&--1024 {
-			background: #e0907e;
+			background-color: #e0907e;
 		}
 		&--2048 {
-			background: #eec469;
+			background-color: #eec469;
 		}
 	}
 }
