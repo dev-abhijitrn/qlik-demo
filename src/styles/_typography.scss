@@ -1,5 +1,11 @@
 html {
-	font-size: 62.5%; /* (10*100/16) */
+	font-size: 62.5%; /* (10*100/16) */	
+}
+
+@media screen and (max-width : 650px) {
+	html{
+		font-size:50%; 
+	}
 }
 
 body {
