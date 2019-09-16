@@ -19,7 +19,6 @@ export default class App {
         this.gameOver = false;
         this.gameWon = false;
         this.setUp();
-        this.registerEvents();
     }
 
     setUp() {
@@ -47,7 +46,7 @@ export default class App {
         for (let row = 0; row < GRID_SIZE; row++) {
             for (let col = 0; col < GRID_SIZE; col++) {
                 if (this.tileValues[row][col] === 0) {
-                    emptyTiles.push([row, col])
+                    emptyTiles.push([row, col]);
                 }
             }
         }
@@ -125,7 +124,10 @@ export default class App {
             for (let col = 0; col <= GRID_SIZE - 1; col++) {
 
                 if (tileRow[col] === 0) {
-                    farthestTileWithZeroIndex = col < farthestTileWithZeroIndex ? col : farthestTileWithZeroIndex;
+                    farthestTileWithZeroIndex = col < farthestTileWithZeroIndex ?
+                        col
+                        :
+                        farthestTileWithZeroIndex;
                     continue;
                 }
 
@@ -146,7 +148,10 @@ export default class App {
                         }
 
                         tileRow[col] = 0;
-                        farthestTileWithZeroIndex = col < farthestTileWithZeroIndex ? col : farthestTileWithZeroIndex;
+                        farthestTileWithZeroIndex = col < farthestTileWithZeroIndex ?
+                            col
+                            :
+                            farthestTileWithZeroIndex;
                         alreadyCalucatedTileIndex = nextTileIndex;
                         tilesMoved = true;
                     }
@@ -198,7 +203,11 @@ export default class App {
                         }
 
                         this.tileValues[row][col] = 0;
-                        farthestTileWithZeroIndex = row < farthestTileWithZeroIndex ? row : farthestTileWithZeroIndex;
+                        farthestTileWithZeroIndex = row < farthestTileWithZeroIndex ?
+                            row
+                            :
+                            farthestTileWithZeroIndex
+                            ;
                         alreadyCalucatedTileIndex = nextTileIndex;
                         tilesMoved = true;
                     }
@@ -273,7 +282,6 @@ export default class App {
     }
 
     checkIfGameIsOver() {
-        console.log('checkIfGameIsOver')
         for (let row = 0; row < GRID_SIZE; row++) {
             for (let col = 0; col < GRID_SIZE; col++) {
                 if (
@@ -303,8 +311,6 @@ export default class App {
 
         const anyEmptyTileExist = this.getEmptyTiles().length !== 0;
 
-        console.log('anyEmptyTileExist: ', anyEmptyTileExist)
-        console.log('tilesMoved: ', tilesMoved)
         if (tilesMoved) {
             this.grid.renderGrid(this.tileValues);
             if (anyEmptyTileExist) {
@@ -326,39 +332,6 @@ export default class App {
         }
 
 
-    }
-
-    registerEvents() {
-
-        document.addEventListener('keydown', (event) => {
-            event.preventDefault();
-            let tilesMoved = false;
-
-            if (event.which === 37) {
-                tilesMoved = this.moveTilesLeft();
-            } else if (event.which === 38) {
-                tilesMoved = this.moveTilesUp();
-            } else if (event.which === 39) {
-                tilesMoved = this.moveTilesRight();
-            } else if (event.which === 40) {
-                tilesMoved = this.moveTilesDown();
-            } else {
-                return;
-            }
-
-            this.updateGrid(tilesMoved);
-        });
-
-        document.querySelector('.game-actions__new-game-btn')
-            .addEventListener('click', () => {
-                this.tileValues = [
-                    [0, 0, 0, 0],
-                    [0, 0, 0, 0],
-                    [0, 0, 0, 0],
-                    [0, 0, 0, 0]
-                ];
-                this.setUp()
-            })
     }
 
 }

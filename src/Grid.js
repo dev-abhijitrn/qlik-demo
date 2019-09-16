@@ -17,7 +17,6 @@ export default class Grid {
         const previousValue = +cell.textContent;
 
         if (value !== 0 && value !== previousValue) {
-            console.log(row, col, value, previousValue)
 
             cell.innerHTML = "";
 

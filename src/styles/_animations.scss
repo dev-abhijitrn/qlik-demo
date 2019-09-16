@@ -1,6 +1,10 @@
 @keyframes zoomIn {
     0% {
-        transform: scaleY(0.7);
+        transform: scaleY(0.8);
+    }
+
+    90% {
+        transform: scaleY(1.1);
     }
 
     100% {
