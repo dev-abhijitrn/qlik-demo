@@ -7,22 +7,28 @@ export default class Grid {
 
         for (let row = 0; row < this.size; row++) {
             for (let col = 0; col < this.size; col++) {
-                const cell = document.querySelector(`.grid__cell--${row}-${col}`);
-                const previousValue = cell.textContent;
-                const currentValue = tileValues[row][col];
-                cell.classList.remove('grid__cell--modified');
-
-                if (currentValue !== 0 && previousValue !== currentValue) {
-                    cell.textContent = currentValue;
-                    cell.classList.remove(`grid__cell--${previousValue}`);
-                    cell.classList.add(`grid__cell--${currentValue}`, 'grid__cell--modified');
-                } else if (currentValue === 0) {
-                    cell.classList.remove(`grid__cell--${previousValue}`);
-                    cell.textContent = "";
-                }
+                this.renderTile(row, col, tileValues[row][col]);
             }
         }
+    }
 
+    renderTile(row, col, value) {
+        const cell = document.querySelector(`.grid__cell--${row}-${col}`);
+        const previousValue = +cell.textContent;
+
+        if (value !== 0 && value !== previousValue) {
+            console.log(row, col, value, previousValue)
+
+            cell.innerHTML = "";
+
+            const tile = document.createElement('div');
+            tile.textContent = value;
+            tile.classList.add(`tile--${value}`, 'tile--modified')
+            cell.appendChild(tile);
+
+        } else if (value === 0) {
+            cell.innerHTML = "";
+        }
     }
 
     displayGameStatus(gameWon) {

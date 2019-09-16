@@ -36,7 +36,9 @@ export default class App {
         if (emptyTiles.length) {
             const [row, col] = emptyTiles[[Math.floor(Math.random() * emptyTiles.length)]];
             this.tileValues[row][col] = Math.random() < 0.8 ? 2 : 4;
+            return [row, col];
         }
+        return [];
     }
 
     getEmptyTiles() {
@@ -306,8 +308,8 @@ export default class App {
         if (tilesMoved) {
             this.grid.renderGrid(this.tileValues);
             if (anyEmptyTileExist) {
-                this.addNewTile();
-                this.grid.renderGrid(this.tileValues);
+                const [row, col] = this.addNewTile();
+                this.grid.renderTile(row, col, this.tileValues[row][col]);
             }
         }
 
