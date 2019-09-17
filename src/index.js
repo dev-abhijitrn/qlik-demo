@@ -31,16 +31,16 @@ let touchStartX = null,
     touchEndY = null;
 
 
-game.addEventListener("touchstart", function (event) {
+game.addEventListener('touchstart', function (event) {
     touchStartX = event.touches[0].clientX;
     touchStartY = event.touches[0].clientY;
 });
 
-game.addEventListener("touchmove", function (event) {
+game.addEventListener('touchmove', function (event) {
     event.preventDefault();
 });
 
-game.addEventListener("touchend", function (event) {
+game.addEventListener('touchend', function (event) {
 
     let tilesMoved = false;
 

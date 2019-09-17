@@ -60,7 +60,9 @@ export default class App {
         for (let row = 0; row < GRID_SIZE; row++) {
 
             let tileRow = this.tileValues[row];
+            // track the farthest index with value 0 for swapping
             let farthestTileWithZeroIndex = -1;
+            // farthest tile index already calculated and shouldn't be recalculated
             let alreadyCalucatedTileIndex = GRID_SIZE;
 
             for (let col = GRID_SIZE - 1; col >= 0; col--) {
@@ -74,6 +76,7 @@ export default class App {
 
                 let nextTileIndex = col + 1;
 
+                // alreadyCalucatedTileIndex will be the bound for comparision 
                 while (nextTileIndex < alreadyCalucatedTileIndex) {
 
                     if (tileRow[nextTileIndex] === 0) {
@@ -118,7 +121,9 @@ export default class App {
         for (let row = 0; row < GRID_SIZE; row++) {
 
             let tileRow = this.tileValues[row];
+            // track the farthest index with value 0 for swapping
             let farthestTileWithZeroIndex = GRID_SIZE;
+            // farthest tile index already calculated and shouldn't be recalculated
             let alreadyCalucatedTileIndex = -1;
 
             for (let col = 0; col <= GRID_SIZE - 1; col++) {
@@ -133,6 +138,7 @@ export default class App {
 
                 let nextTileIndex = col - 1;
 
+                // alreadyCalucatedTileIndex will be the bound for comparision 
                 while (nextTileIndex > alreadyCalucatedTileIndex) {
 
                     if (tileRow[nextTileIndex] === 0) {
@@ -176,7 +182,9 @@ export default class App {
 
         for (let col = 0; col < GRID_SIZE; col++) {
 
+            // track the farthest index with value 0 for swapping
             let farthestTileWithZeroIndex = GRID_SIZE;
+            // farthest tile index already calculated and shouldn't be recalculated
             let alreadyCalucatedTileIndex = -1;
 
             for (let row = 0; row <= GRID_SIZE - 1; row++) {
@@ -188,6 +196,7 @@ export default class App {
 
                 let nextTileIndex = row - 1;
 
+                // alreadyCalucatedTileIndex will be the bound for comparision 
                 while (nextTileIndex > alreadyCalucatedTileIndex) {
 
                     if (this.tileValues[nextTileIndex][col] === 0) {
@@ -232,8 +241,9 @@ export default class App {
         let tilesMoved = false;
 
         for (let col = 0; col < GRID_SIZE; col++) {
-
+            // track the farthest index with value 0 for swapping
             let farthestTileWithZeroIndex = -1;
+            // farthest tile index already calculated and shouldn't be recalculated
             let alreadyCalucatedTileIndex = GRID_SIZE;
 
             for (let row = GRID_SIZE - 1; row >= 0; row--) {
@@ -244,7 +254,7 @@ export default class App {
                 }
 
                 let nextTileIndex = row + 1;
-
+                // alreadyCalucatedTileIndex will be the bound for comparision 
                 while (nextTileIndex < alreadyCalucatedTileIndex) {
 
                     if (this.tileValues[nextTileIndex][col] === 0) {

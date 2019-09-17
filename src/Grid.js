@@ -18,7 +18,7 @@ export default class Grid {
 
         if (value !== 0 && value !== previousValue) {
 
-            cell.innerHTML = "";
+            cell.innerHTML = '';
 
             const tile = document.createElement('div');
             tile.textContent = value;
@@ -26,7 +26,7 @@ export default class Grid {
             cell.appendChild(tile);
 
         } else if (value === 0) {
-            cell.innerHTML = "";
+            cell.innerHTML = '';
         }
     }
 
