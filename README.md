@@ -11,5 +11,5 @@
 
 **For running the app:**
 - Browse index.html in dist folder
-- Run npm install and then npm run start from the root folder
+- Run npm install and followed by npm run start from the root folder
 - Browse https://dev-abhijitrn.github.io/qlik-demo/
